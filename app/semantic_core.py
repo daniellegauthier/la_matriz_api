@@ -6,6 +6,8 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cluster import KMeans
 import random
 import numpy as np
+import csv
+from pathlib import Path
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -51,3 +53,28 @@ class PhraseAnalyzer:
         magnitudes = np.linalg.norm(diffs, axis=1)
         directions = diffs / np.expand_dims(magnitudes + 1e-9, axis=1)
         return magnitudes.tolist(), directions.tolist()
+
+class SemanticMapper:
+    def __init__(self, filepath: str = None):
+        self.semantic_colors = {}
+        if filepath:
+            self.load_colors(filepath)
+
+    def load_colors(self, filepath):
+        path = Path(filepath)
+        if not path.exists():
+            raise FileNotFoundError(f"CSV file not found: {filepath}")
+
+        with open(filepath, newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                word = row['Original Words'].strip().lower()
+                r, g, b = int(row['R']), int(row['G']), int(row['B'])
+                self.semantic_colors[word] = [r, g, b]
+
+    def transform(self, words):
+        """
+        Given a list of input words, return their RGB colors.
+        Defaults to black [0, 0, 0] if not found.
+        """
+        return [self.semantic_colors.get(word.lower(), [0, 0, 0]) for word in words]
