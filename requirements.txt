@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pandas
+numpy
+nltk
+matplotlib
+scikit-learn
+requests
