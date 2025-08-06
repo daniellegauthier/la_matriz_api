@@ -5,8 +5,7 @@ from app.utils import generate_color_sequence, calculate_momentum
 def initialize_pipeline():
     pipeline = Pipeline([
         ('preprocessor', NLTKPreprocessor()),
-        ('semantic_mapper', SemanticMapper(
-            url="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/semantic_rgb_mapping-7Fyy0MQQFX3s6KmXIryYY5kH3cG2qk.csv"
+        (''semantic_mapper', SemanticMapper(filepath="data/semantic_rgb_mapping_with_sentiment.csv")),
         )),
     ])
     pipeline.fit(["init"])
