@@ -52,7 +52,7 @@ You’ll see a response like:
 ```
 Then open this in your browser:
 ```
-https://your-api-name.up.railway.app/static/palette.png
+https://la_matriz_api.up.railway.app/static/palette.png
 ```
 To see your color palette!
 
