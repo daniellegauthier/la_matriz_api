@@ -1,6 +1,11 @@
 from sklearn.pipeline import Pipeline
 from app.semantic_core import NLTKPreprocessor, SemanticMapper, PhraseAnalyzer
 from app.utils import generate_color_sequence, calculate_momentum
+from pathlib import Path
+
+csv_path = Path(__file__).resolve().parent.parent / "data/semantic_rgb_mapping_with_sentiment.csv"
+preprocessor = NLTKPreprocessor()
+color_mapper = SemanticMapper(csv_path).fit()
 
 def initialize_pipeline():
     pipeline = Pipeline([
